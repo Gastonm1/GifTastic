@@ -13,7 +13,7 @@
 $("button").on("click", function(){
     var team = $(this).attr("data-team");
 
-    apiURL + team + apiKey;
+    var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
 
     $.ajax({
         url: apiURL,
@@ -22,20 +22,23 @@ $("button").on("click", function(){
 
     .then(function(answer){
 
-        var results = answer.data[0];
+        var results = answer.data;
+
+        results(answer.data[0].images.original.url);
 
         for (var i = 0; i < results.length; i++) {
 
-            if (results.rating !== "r" && results.rating !== "pg-13") {
+            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                
                 var gifDiv = $("<div>");
 
-                var rating = results.rating;
+                var rating = results[i].rating;
 
                 var p = $("<p>").text("Rating: " + rating);
 
                 var teamImage = $("<img>");
 
-                teamImage.attr("src", results.user.images.fixed_height_still.url);
+                teamImage.attr("src", results[i].images.fixed_height_still.url);
 
                     gifDiv.append(p);
                     gifDiv.append(teamImage);
