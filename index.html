@@ -3,26 +3,37 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>National Football League</title>
+    <title>National Football League Search</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css" />
 </head>
 
 <body>
-  
-        
-    <button data-team="bears">
-          DA BEARS
+        <!-- Generated buttons will go here-->
+        <div id ="buttons-container">
+    <button data-team="Chicago Bears">
+          Chicago Bears
         </button>
-        <button data-team="bengals">
-          Who Dey
+        <button data-team="Cincinnati Bengals">
+          Cincinnati Bengals
         </button>
-        <button data-team="patriots">
-          The Pats
+        <button data-team="New England Patriots">
+          New England Patriots
         </button>
+      </div>
 
+      <form id="NFL-form">
+        <label for ="nfl-input">Add your NFL team here!</label>
+        <input type="text" id="nfl-input"><br>
+
+        <!--Submit button will generate the team to be added-->
+        <input id="add-nflTeam" type="submit" value="Add your NFL team here!">
+      </form>
+
+      <!--gifs will be added here-->
         <div id="gifs-appear-here">
         </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="assets/javascript/GifTastic.js"></script>
         <script type="text/javascript"></script>
