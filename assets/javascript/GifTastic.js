@@ -1,7 +1,6 @@
 // =====================Global Variables ==================
-   var apiURL = "https://api.giphy.com/v1/gifs/search?q=";
    var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5";
-
+    var q = "q=Chicago Bears"; 
 // Key = LlRQg08g43znkyLMjdumZmLCJQvFpkQ5
 // Path = GET /v1/gifs/search
 
@@ -24,8 +23,6 @@ $("button").on("click", function(){
 
         var results = answer.data;
 
-        results(answer.data[0].images.original.url);
-
         for (var i = 0; i < results.length; i++) {
 
             if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
@@ -38,7 +35,7 @@ $("button").on("click", function(){
 
                 var teamImage = $("<img>");
 
-                teamImage.attr("src", results[i].images.fixed_height_still.url);
+                teamImage.attr("src", results[i].images.original.url);
 
                     gifDiv.append(p);
                     gifDiv.append(teamImage);
