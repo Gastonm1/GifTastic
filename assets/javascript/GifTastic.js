@@ -52,6 +52,9 @@ var nflTeams = ["The Chicago Bears", "The Cincinnati Bengals", " The New England
         generateButtons();
     });
 
+    $(document).on("click", ".team", displayNFLGifs);
+
+    generateButtons();
 
 //======================================================================================================
 // $("button").on("click", function(){
