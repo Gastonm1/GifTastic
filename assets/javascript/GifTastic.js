@@ -41,7 +41,16 @@ var nflTeams = ["The Chicago Bears", "The Cincinnati Bengals", " The New England
         }
     }
 
+    $("#add-nflTeam").on("click", function(event){
+        event.preventDefault();
 
+        var team = $("#nfl-input").val().trim();
+
+        nflTeams.push(team);
+        console.log(nflTeams);
+
+        generateButtons();
+    });
 
 
 //======================================================================================================
