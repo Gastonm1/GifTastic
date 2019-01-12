@@ -1,6 +1,5 @@
 // =====================IMPORTANT Variables ==================
-   var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5";
-    var q = "q=Chicago Bears"; 
+var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5&q=";
 
 // * limit: interger * will return a quantity of records (gifs) (default is 25)
 // * rating: string * Filters results by specified rating
@@ -10,87 +9,100 @@
 // display 10 gifs per team
 // make gifs start/"stop" when clicked
 
-var nflTeams = ["The Chicago Bears", "The Cincinnati Bengals", " The New England Patriots"];
+var nflTeams = ["Chicago Bears", "Cincinnati Bengals", " New England Patriots"];
 
-    function displayNFLGifs() {
+function displayNFLGifs() {
+  var team = $(this).attr("data-team");
 
-        var team = $(this).attr("data-team");
+  var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
 
-        var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
-    
-        $.ajax({
-            url: apiURL,
-            method: "GET"
-        })
-    
+  $.ajax({
+    url: apiURL,
+    method: "GET"
+  })
+  .then(function(answer) {
+    $("#gifs-appear-here").text(JSON.stringify(answer));
+  });
+}
+
+function generateButtons() {
+  // create buttons here
+  $("#buttons-container").empty(); // Delete the buttons prior to adding a new button
+
+  for (var i = 0; i < nflTeams.length; i++) {
+    // looping through the array of nflTeams
+
+    var a = $("<button>");
+    a.addClass("team");
+    a.attr("data-team", nflTeams[i]);
+    a.text(nflTeams[i]);
+    $("#buttons-container").append(a);
+  }
+}
+
+$("#add-nflTeam").on("click", function(event) {
+  event.preventDefault();
+
+  var choosenTeam = $("#nfl-input")
+    .val()
+    .trim();
+
+  nflTeams.push(choosenTeam);
+  console.log(nflTeams);
+
+  generateButtons();
+});
+
+$(document).on("click", ".team", displayNFLGifs);
+
+generateButtons();
+
+$("button").on("click", function(){
+
+    var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
+
+    $.ajax({
+        url: apiURL,
+        method: "GET"
+    })
         .then(function(answer){
-            $("#gifs-appear-here").text(JSON.stringify(answer));
+
+            var teamUrl = answer.data[i].images.original.url;
+
+            var teamImage = $("<img>");
+
+            teamImage.attr("src", teamUrl);
+            teamImage.attr("alt", "team image");
+
+            $("#gifs-appear-here").prepend(teamImage);
         });
-    }
 
-    function generateButtons() { // create buttons here
-        $("#buttons-container").empty(); // Delete the buttons prior to adding a new button
+});
+    
 
-        for (var i = 0; i < nflTeams.length; i++){ // looping through the array of nflTeams
+    // .then(function(answer){
+    //     $("#gifs-appear-here").text(JSON.stringify(answer));
 
-            var a = $("<button>");
-            a.addClass("team");
-            a.attr("data-team", nflTeams[i]);
-            a.text(nflTeams[i]);
-            $("#buttons-container").append(a);
-        }
-    }
+    //     var results = answer.data;
 
-    $("#add-nflTeam").on("click", function(event){
-        event.preventDefault();
+        // for (var i = 0; i < results.length; i++) {
 
-        var team = $("#nfl-input").val().trim();
+        //     if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
 
-        nflTeams.push(team);
-        console.log(nflTeams);
+        //         var gifDiv = $("<div>");
 
-        generateButtons();
-    });
+        //         var rating = results[i].rating;
 
-    $(document).on("click", ".team", displayNFLGifs);
+                // var p = $("<p>").text("Rating: " + rating);
 
-    generateButtons();
+                // var teamImage = $("<img>");
 
-//======================================================================================================
-// $("button").on("click", function(){
-//     var team = $(this).attr("data-team");
+                // teamImage.attr("src", results[i].images.original.url);
 
-//     var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
+                    // gifDiv.append(p);
+                    // gifDiv.append(teamImage);
 
-//     $.ajax({
-//         url: apiURL,
-//         method: "GET"
-//     })
-
-//     .then(function(answer){
-//         $("#gifs-appear-here").text(JSON.stringify(answer));
-//     });
-// }
-//         var results = answer.data;
-
-//         for (var i = 0; i < results.length; i++) {
-
-//             if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-                
-//                 var gifDiv = $("<div>");
-
-//                 var rating = results[i].rating;
-
-//                 var p = $("<p>").text("Rating: " + rating);
-
-//                 var teamImage = $("<img>");
-
-//                 teamImage.attr("src", results[i].images.original.url);
-
-//                     gifDiv.append(p);
-//                     gifDiv.append(teamImage);
-
-//                     $("#gifs-appear-here").prepend(gifDiv);
+                    // $("#gifs-appear-here").prepend(gifDiv);
 
 //             }
 //         }
