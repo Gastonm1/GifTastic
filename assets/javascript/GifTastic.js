@@ -28,10 +28,10 @@ var nflTeams = ["The Chicago Bears", "The Cincinnati Bengals", " The New England
         });
     }
 
-    function generateButtons() {
-        $("#buttons-container").empty();
+    function generateButtons() { // create buttons here
+        $("#buttons-container").empty(); // Delete the buttons prior to adding a new button
 
-        for (var i = 0; i < nflTeams.length; i++){
+        for (var i = 0; i < nflTeams.length; i++){ // looping through the array of nflTeams
 
             var a = $("<button>");
             a.addClass("team");
@@ -43,43 +43,44 @@ var nflTeams = ["The Chicago Bears", "The Cincinnati Bengals", " The New England
 
 
 
+
 //======================================================================================================
-$("button").on("click", function(){
-    var team = $(this).attr("data-team");
+// $("button").on("click", function(){
+//     var team = $(this).attr("data-team");
 
-    var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
+//     var apiURL = "https://api.giphy.com/v1/gifs/search?q=" + team + apiKey;
 
-    $.ajax({
-        url: apiURL,
-        method: "GET"
-    })
+//     $.ajax({
+//         url: apiURL,
+//         method: "GET"
+//     })
 
-    .then(function(answer){
-        $("#gifs-appear-here").text(JSON.stringify(answer));
-    });
-}
-        var results = answer.data;
+//     .then(function(answer){
+//         $("#gifs-appear-here").text(JSON.stringify(answer));
+//     });
+// }
+//         var results = answer.data;
 
-        for (var i = 0; i < results.length; i++) {
+//         for (var i = 0; i < results.length; i++) {
 
-            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+//             if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
                 
-                var gifDiv = $("<div>");
+//                 var gifDiv = $("<div>");
 
-                var rating = results[i].rating;
+//                 var rating = results[i].rating;
 
-                var p = $("<p>").text("Rating: " + rating);
+//                 var p = $("<p>").text("Rating: " + rating);
 
-                var teamImage = $("<img>");
+//                 var teamImage = $("<img>");
 
-                teamImage.attr("src", results[i].images.original.url);
+//                 teamImage.attr("src", results[i].images.original.url);
 
-                    gifDiv.append(p);
-                    gifDiv.append(teamImage);
+//                     gifDiv.append(p);
+//                     gifDiv.append(teamImage);
 
-                    $("#gifs-appear-here").prepend(gifDiv);
+//                     $("#gifs-appear-here").prepend(gifDiv);
 
-            }
-        }
-    });
-});
+//             }
+//         }
+//     });
+// });
