@@ -11,7 +11,7 @@ var nflTeams = ["Chicago Bears", "Cincinnati Bengals", " New England Patriots"];
 // 5. make gifs start/"stop" when clicked
 //=================================================================================================================
 
-// #2 ========
+// #2 =============================================================================================================
 function generateButtons() {
   // creating the button
   // create buttons here
@@ -36,18 +36,17 @@ function generateButtons() {
       .trim();
 
     nflTeams.push(choosenTeam);
-    console.log(nflTeams);
 
     generateButtons();
   });
 }
 
-generateButtons();
-//#2 ^^^^^^ ========
-
-// #3 ==============
-
 $(document).on("click", ".team", displayNFLGifs);
+
+generateButtons();
+// #2 =============================================================================================================
+
+// #3 =============================================================================================================
 
 function displayNFLGifs() {
   var team = $(this).attr("data-team");
@@ -57,44 +56,18 @@ function displayNFLGifs() {
   $.ajax({
     url: apiURL,
     method: "GET"
-  }).then(function(answer) {
-    var teamUrl = answer.data.images.url;
+  }).then(function(giphy) {
+    console.log(giphy);
+    var teamUrl = giphy.data[0].images.original.url;
+
+    //console.log(teamUrl);
 
     var teamImage = $("<img>");
 
     teamImage.attr("src", teamUrl);
     teamImage.attr("alt", "team image");
-    console.log(teamImage);
+
     $("#gifs-appear-here").prepend(teamImage);
   });
 }
-displayNFLGifs();
-
-// .then(function(answer){
-//     $("#gifs-appear-here").text(JSON.stringify(answer));
-
-//     var results = answer.data;
-
-// for (var i = 0; i < results.length; i++) {
-
-//     if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
-
-//         var gifDiv = $("<div>");
-
-//         var rating = results[i].rating;
-
-// var p = $("<p>").text("Rating: " + rating);
-
-// var teamImage = $("<img>");
-
-// teamImage.attr("src", results[i].images.original.url);
-
-// gifDiv.append(p);
-// gifDiv.append(teamImage);
-
-// $("#gifs-appear-here").prepend(gifDiv);
-
-//             }
-//         }
-//     });
-// });
+///#3=================================================================================================================
