@@ -1,5 +1,5 @@
 // =====================IMPORTANT Variables ==================
-var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5&q=";
+var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5&limit=5&q=";
 var nflTeams = ["Chicago Bears", "Cincinnati Bengals", " New England Patriots"]; // #1
 // * limit: interger * will return a quantity of records (gifs) (default is 25)
 // * rating: string * Filters results by specified rating
@@ -41,14 +41,14 @@ function generateButtons() {
   });
 }
 
-$(document).on("click", ".team", displayNFLGifs);
-
 generateButtons();
 // #2 =============================================================================================================
 
 // #3 =============================================================================================================
 
-function displayNFLGifs() {
+$("button").on("click", function(){
+
+
   var team = $(this).attr("data-team");
 
   var apiURL = "https://api.giphy.com/v1/gifs/search?" + apiKey + team;
@@ -57,17 +57,30 @@ function displayNFLGifs() {
     url: apiURL,
     method: "GET"
   }).then(function(giphy) {
-    console.log(giphy);
-    var teamUrl = giphy.data[0].images.original.url;
+    //console.log(giphy);
+    var teamUrl = giphy.data;
+  console.log(teamUrl);
+    for (var i = 0; i < teamUrl.length; i++) {
 
-    //console.log(teamUrl);
+        if (teamUrl[i].rating !=="r") {
 
-    var teamImage = $("<img>");
+        var gifDiv = $("<div>");
 
-    teamImage.attr("src", teamUrl);
-    teamImage.attr("alt", "team image");
+        var rating = teamUrl[i].rating;
+      
+        var p = $("<p>").text("Rating: " + rating);
 
-    $("#gifs-appear-here").prepend(teamImage);
-  });
-}
+        var teamImage = $("<img>");
+
+        teamImage.attr("src", teamUrl[i].images.original.url);
+
+        gifDiv.append(p);
+        gifDiv.append(teamImage);
+        
+        $("#gifs-appear-here").prepend(gifDiv);
+      }
+    }
+});
+});
+
 ///#3=================================================================================================================
