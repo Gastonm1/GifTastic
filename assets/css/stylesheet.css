@@ -1,3 +1,8 @@
+body {
+  background-image: url("http://www.frcblog.com/media/filer/2017/11/06/110617_nfl_770x400.jpg");
+  background-color: #cccccc;
+}
+
 button {
   margin: 3px;
 }
