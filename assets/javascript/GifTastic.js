@@ -9,7 +9,7 @@ var nflTeams = ["Chicago Bears", "Cincinnati Bengals", " New England Patriots"];
 // 3. Generate gifs once button is clicked = DONE
 // 4. display 5 gifs per team = DONE
 // 5. make gifs start/"stop" when clicked
-// 6. apply function to generated buttons
+// 6. apply function to generated buttons = DONE
 //=================================================================================================================
 
 // #2 =============================================================================================================
@@ -40,9 +40,7 @@ function generateButtons() {
 
     generateButtons();
   });
-}
 
-generateButtons();
 // #2 =============================================================================================================
 
 // #3 =============================================================================================================
@@ -96,4 +94,8 @@ $("button").on("click", function() {
     }
   });
 });
+  
+  }
+
+generateButtons();
 
