@@ -59,8 +59,10 @@ $("button").on("click", function() {
     //console.log(giphy);
     var teamUrl = giphy.data;
     console.log(teamUrl);
+    
     for (var i = 0; i < teamUrl.length; i++) {
       if (teamUrl[i].rating !== "r") {
+
         var gifDiv = $("<div>");
 
         var rating = teamUrl[i].rating;
@@ -94,3 +96,4 @@ $("button").on("click", function() {
     }
   });
 });
+
