@@ -1,6 +1,6 @@
 // =====================IMPORTANT Variables ==================
 var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5&limit=5&q=";
-var nflTeams = ["Chicago Bears", "Cincinnati Bengals", " New England Patriots"]; // #1
+var nflTeams = ["Chicago, Bears", "Cincinnati, Bengals", " New England, Patriots"]; // #1
 // * limit: interger * will return a quantity of records (gifs) (default is 25)
 // * rating: string * Filters results by specified rating
 //========================================PSEUDO CODE============================================================
