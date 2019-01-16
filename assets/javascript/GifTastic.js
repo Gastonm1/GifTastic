@@ -6,9 +6,10 @@ var nflTeams = ["Chicago Bears", "Cincinnati Bengals", " New England Patriots"];
 //========================================PSEUDO CODE============================================================
 // 1. Create an array of NFL teams = DONE
 // 2. Allow user to add a team to the array = DONE
-// 3. Generate gifs once button is clicked
-// 4. display 10 gifs per team
+// 3. Generate gifs once button is clicked = DONE
+// 4. display 5 gifs per team = DONE
 // 5. make gifs start/"stop" when clicked
+// 6. apply function to generated buttons
 //=================================================================================================================
 
 // #2 =============================================================================================================
@@ -46,9 +47,7 @@ generateButtons();
 
 // #3 =============================================================================================================
 
-$("button").on("click", function(){
-
-
+$("button").on("click", function() {
   var team = $(this).attr("data-team");
 
   var apiURL = "https://api.giphy.com/v1/gifs/search?" + apiKey + team;
@@ -59,28 +58,39 @@ $("button").on("click", function(){
   }).then(function(giphy) {
     //console.log(giphy);
     var teamUrl = giphy.data;
-  console.log(teamUrl);
+    console.log(teamUrl);
     for (var i = 0; i < teamUrl.length; i++) {
-
-        if (teamUrl[i].rating !=="r") {
-
+      if (teamUrl[i].rating !== "r") {
         var gifDiv = $("<div>");
 
         var rating = teamUrl[i].rating;
-      
+
         var p = $("<p>").text("Rating: " + rating);
 
         var teamImage = $("<img>");
 
         teamImage.attr("src", teamUrl[i].images.original.url);
 
+        teamImage.on("click", function() {
+          //console.log([i]);
+          var state = $(this).attr("src", teamUrl[i].images.fixed_height_still.url);
+          $(this).attr("src", state);
+
+          if (state === "still") {
+            $(this).attr("src", teamUrl[i].images.fixed_height_still.url);
+            $(this).attr("img", "still");
+          } else {
+            $(this).attr("src", teamUrl[i].images.original.url);
+            $(this).attr("img", "animate");
+            console.log(state);
+          }
+        });
+
         gifDiv.append(p);
         gifDiv.append(teamImage);
-        
+
         $("#gifs-appear-here").prepend(gifDiv);
       }
     }
+  });
 });
-});
-
-///#3=================================================================================================================
