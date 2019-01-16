@@ -56,7 +56,7 @@ $("button").on("click", function() {
   }).then(function(giphy) {
     //console.log(giphy);
     var teamUrl = giphy.data;
-    console.log(teamUrl);
+    //console.log(teamUrl);
     
     for (var i = 0; i < teamUrl.length; i++) {
       if (teamUrl[i].rating !== "r") {
@@ -68,23 +68,14 @@ $("button").on("click", function() {
         var p = $("<p>").text("Rating: " + rating);
 
         var teamImage = $("<img>");
+        teamImage.attr("data-still", teamUrl[i].images.fixed_height_still.url);
+        teamImage.attr("data-animated", teamUrl[i].images.original.url);
+        teamImage.attr("data-state", "still");
+        teamImage.addClass("gif")
 
         teamImage.attr("src", teamUrl[i].images.original.url);
 
-        teamImage.on("click", function() {
-          //console.log([i]);
-          var state = $(this).attr("src", teamUrl[i].images.fixed_height_still.url);
-          $(this).attr("src", state);
 
-          if (state === "still") {
-            $(this).attr("src", teamUrl[i].images.fixed_height_still.url);
-            $(this).attr("img", "still");
-          } else {
-            $(this).attr("src", teamUrl[i].images.original.url);
-            $(this).attr("img", "animate");
-            console.log(state);
-          }
-        });
 
         gifDiv.append(p);
         gifDiv.append(teamImage);
@@ -92,6 +83,19 @@ $("button").on("click", function() {
         $("#gifs-appear-here").prepend(gifDiv);
       }
     }
+
+    $(document).on("click", ".gif", function() {
+      //console.log("test");
+      var state = $(this).attr("data-state");
+      //console.log(state)
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animated"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+    });
   });
 });
   
