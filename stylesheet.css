@@ -1,0 +1,21 @@
+body {
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+button {
+  margin: 3px;
+}
+
+div {
+  margin: 10px;
+}
+
+input {
+  margin: 10px;
+}
+
+#Example {
+  margin: 0;
+  font-size: 3;
+}
