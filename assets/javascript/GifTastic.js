@@ -1,6 +1,10 @@
 // =====================IMPORTANT Variables ==================
 var apiKey = "&api_key=LlRQg08g43znkyLMjdumZmLCJQvFpkQ5&limit=5&q=";
-var nflTeams = ["Chicago, Bears", "Cincinnati, Bengals", " New England, Patriots"]; // #1
+var nflTeams = [
+  "Chicago, Bears",
+  "Cincinnati, Bengals",
+  " New England, Patriots"
+]; // #1
 // * limit: interger * will return a quantity of records (gifs) (default is 25)
 // * rating: string * Filters results by specified rating
 //========================================PSEUDO CODE============================================================
@@ -41,65 +45,63 @@ function generateButtons() {
     generateButtons();
   });
 
-// #2 =============================================================================================================
+  // #2 =============================================================================================================
 
-// #3 =============================================================================================================
+  // #3 =============================================================================================================
 
-$("button").on("click", function() {
-  var team = $(this).attr("data-team");
+  $("button").on("click", function() {
+    var team = $(this).attr("data-team");
 
-  var apiURL = "https://api.giphy.com/v1/gifs/search?" + apiKey + team;
+    var apiURL = "https://api.giphy.com/v1/gifs/search?" + apiKey + team;
 
-  $.ajax({
-    url: apiURL,
-    method: "GET"
-  }).then(function(giphy) {
-    //console.log(giphy);
-    var teamUrl = giphy.data;
-    //console.log(teamUrl);
-    
-    for (var i = 0; i < teamUrl.length; i++) {
-      if (teamUrl[i].rating !== "r") {
+    $.ajax({
+      url: apiURL,
+      method: "GET"
+    }).then(function(giphy) {
+      //console.log(giphy);
+      var teamUrl = giphy.data;
+      //console.log(teamUrl);
 
-        var gifDiv = $("<div>");
+      for (var i = 0; i < teamUrl.length; i++) {
+        if (teamUrl[i].rating !== "r") {
+          var gifDiv = $("<div>");
 
-        var rating = teamUrl[i].rating;
+          var rating = teamUrl[i].rating;
 
-        var p = $("<p>").text("Rating: " + rating);
+          var p = $("<p>").text("Rating: " + rating);
 
-        var teamImage = $("<img>");
-        teamImage.attr("data-still", teamUrl[i].images.fixed_height_still.url);
-        teamImage.attr("data-animated", teamUrl[i].images.original.url);
-        teamImage.attr("data-state", "still");
-        teamImage.addClass("gif")
+          var teamImage = $("<img>");
+          teamImage.attr(
+            "data-still",
+            teamUrl[i].images.fixed_height_still.url
+          );
+          teamImage.attr("data-animated", teamUrl[i].images.original.url);
+          teamImage.attr("data-state", "still");
+          teamImage.addClass("gif");
 
-        teamImage.attr("src", teamUrl[i].images.original.url);
+          teamImage.attr("src", teamUrl[i].images.original.url);
 
+          gifDiv.append(p);
+          gifDiv.append(teamImage);
 
-
-        gifDiv.append(p);
-        gifDiv.append(teamImage);
-
-        $("#gifs-appear-here").prepend(gifDiv);
+          $("#gifs-appear-here").prepend(gifDiv);
+        }
       }
-    }
 
-    $(document).on("click", ".gif", function() {
-      //console.log("test");
-      var state = $(this).attr("data-state");
-      //console.log(state)
-      if (state === "still") {
-        $(this).attr("src", $(this).attr("data-animated"));
-        $(this).attr("data-state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-      }
+      $(document).on("click", ".gif", function() {
+        //console.log("test");
+        var state = $(this).attr("data-state");
+        //console.log(state)
+        if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animated"));
+          $(this).attr("data-state", "animate");
+        } else {
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        }
+      });
     });
   });
-});
-  
-  }
+}
 
 generateButtons();
-

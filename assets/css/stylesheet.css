@@ -1,6 +1,6 @@
 body {
-  background-image: url("../css/images/110617_nfl_770x400.jpg");
-  background-color: #cccccc;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 button {
